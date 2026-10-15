@@ -1,4 +1,5 @@
-import { Component }  from "react";
+import { Component } from "react";
+import css from "./Searchbar.module.css";
 
 export class Searchbar extends Component {
     state = {
@@ -13,24 +14,41 @@ export class Searchbar extends Component {
 
     handleSubmit = evt => {
         evt.preventDefault();
+        const value = this.state.value;
         const { onSubmit } = this.props;
         
-        onSubmit(this.state.value)
+        if (value.trim() === "") {
+            return;
+        }
+        onSubmit(value.trim())
         this.setState({
             value: '',
         })
     }
     
     render() {
-        return (
-            <header>
-                <form onSubmit={this.handleSubmit}>
-                    <button type="submit">
-                        <span>Search</span>
-                    </button>
-                    <input type="text" name="search" autoComplete="off" autoFocus placeholder="Search images and photos" onChange={this.handleChange} value={this.state.value} />
-                </form>
-            </header>
-        )
+    return (
+        <header className={css.header}>
+        <form
+            className={css.form}
+            onSubmit={this.handleSubmit}
+        >
+            <button className={css.button} type="submit">
+            <span>Search</span>
+            </button>
+
+            <input
+            className={css.input}
+            type="text"
+            name="search"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleChange}
+            value={this.state.value}
+            />
+        </form>
+        </header>
+    );
     }
 }

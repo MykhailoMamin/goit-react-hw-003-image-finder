@@ -14,5 +14,8 @@ export const getImages = async (searchValue, page = 1) => {
     });
 
     const response = await axios.get(`${BASE_URL}?${searchParams.toString()}`);
-    return response.data.hits;
+    return {
+        hits: response.data.hits,
+        totalHits: response.data.totalHits,
+    }
 }
